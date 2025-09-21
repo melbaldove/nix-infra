@@ -10,7 +10,7 @@
   users.groups.alertmanager = {};
 
   age.secrets.alertmanager-slack-webhook = {
-    file = ../../../secrets/alertmanager-slack-webhook.age;
+    file = ../../secrets/infrastructure/alertmanager-slack-webhook.age;
     owner = "alertmanager";
     group = "alertmanager";
   };
