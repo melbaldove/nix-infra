@@ -906,11 +906,11 @@
         "twenty": "twenty_2"
       },
       "locked": {
-        "lastModified": 1758464115,
-        "narHash": "sha256-O3gsOJtUI/4wWZEZkZgmGvAD6fBJoFtlIZcmRnqlKcE=",
+        "lastModified": 1758465769,
+        "narHash": "sha256-1Hud2sxO+ZejDcfqlxWIRJXfdxEtY0E5Xu7OwVsb5bU=",
         "ref": "refs/heads/main",
-        "rev": "d5a493a14fb5c2143594ec564eefb47356296ad7",
-        "revCount": 6,
+        "rev": "0e4c6c8ad16428434638fe939f3b37196d6623f8",
+        "revCount": 7,
         "type": "git",
         "url": "ssh://git@github.com/next-desk-business-solutions/services.git"
       },
