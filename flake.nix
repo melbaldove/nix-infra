@@ -13,8 +13,8 @@
     dotfiles.url = "github:melbaldove/dotfiles";
     
     # Import service modules from app repos
-    haeru.url = "github:melbaldove/haeru";
-    nextdesk-services.url = "path:/Users/melbournebaldove/nextdesk/services";
+    haeru.url = "github:haeru-app/haeru";
+    nextdesk-services.url = "github:next-desk-business-solutions/services";
   };
   
   outputs = { self, nixpkgs, deploy-rs, agenix, home-manager, dotfiles, haeru, nextdesk-services }@inputs: {
