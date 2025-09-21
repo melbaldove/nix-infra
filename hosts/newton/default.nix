@@ -147,12 +147,6 @@
 
   # Configure agenix secrets for backup
   age.secrets.restic-password.file = ../../secrets/infrastructure/restic-password.age;
-  
-  # Configure n8n secrets
-  # TODO: n8n secrets will come from nextdesk-services
-  # age.secrets.n8n-encryption-key.file = ../../secrets/n8n-encryption-key.age;
-  # age.secrets.n8n-db-password.file = ../../secrets/n8n-db-password.age;
-  # age.secrets.n8n-basic-auth-password.file = ../../secrets/n8n-basic-auth-password.age;
 
   # Configure restic backup service
   services.restic-backup = {
