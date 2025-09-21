@@ -24,4 +24,7 @@ in
   
   # GitHub runner token for einstein
   "infrastructure/github-runner-token.age".publicKeys = [ user einstein ];
+  
+  # GitHub runner SSH key for einstein
+  "infrastructure/github-runner-ssh-key.age".publicKeys = [ user einstein ];
 }

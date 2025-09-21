@@ -11,7 +11,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];  # Give sudo access for deployments
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGeQYsbkqQwg5G38Y8a0/wDS7zjfaYogk+NDzaCh62bz haeru-deploy@github-actions"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL9kxNdfEm/cwRLiYX5JokRQTnb2//LMXHJFR4SYnTxA github-runner@einstein"
     ];
   };
 }
