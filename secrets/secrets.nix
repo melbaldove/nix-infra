@@ -21,4 +21,7 @@ in
   
   # Backup secrets
   "infrastructure/restic-password.age".publicKeys = [ user newton shannon einstein ];
+  
+  # GitHub runner token for einstein
+  "infrastructure/github-runner-token.age".publicKeys = [ user einstein ];
 }

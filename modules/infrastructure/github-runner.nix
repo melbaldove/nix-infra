@@ -1,12 +1,20 @@
 { config, lib, pkgs, ... }:
 
 {
+  # Setup secret for GitHub runner token
+  age.secrets.github-runner-token = {
+    file = ../../secrets/infrastructure/github-runner-token.age;
+    owner = "github-runner";
+    group = "github-runner";
+    mode = "0400";
+  };
+  
   # GitHub Actions self-hosted runner
   services.github-runners = {
     haeru-runner = {
       enable = true;
       url = "https://github.com/haeru-app/haeru";
-      tokenFile = "/etc/github-runner/token";
+      tokenFile = config.age.secrets.github-runner-token.path;
       name = "einstein-runner";
       
       # Run as a dedicated user
