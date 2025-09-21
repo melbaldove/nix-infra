@@ -11,6 +11,7 @@
     ../../modules/personal/media-server.nix
     ../../modules/networking/wireguard-gateway.nix
     ../../modules/shared/node-exporter.nix
+    ../../modules/infrastructure/github-runner.nix
     inputs.home-manager.nixosModules.home-manager
   ];
 
