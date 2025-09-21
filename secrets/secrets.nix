@@ -10,48 +10,15 @@ let
 in
 {
   # WireGuard private keys - each machine can only decrypt its own key
-  "wireguard-einstein-private.age".publicKeys = [ user einstein ];
-  "wireguard-shannon-private.age".publicKeys = [ user shannon ];
-  "wireguard-shannon-startup-private.age".publicKeys = [ user shannon ];
-  "wireguard-turing-private.age".publicKeys = [ user turing ];
-  "wireguard-newton-private.age".publicKeys = [ user newton ];
+  "infrastructure/wireguard-einstein-private.age".publicKeys = [ user einstein ];
+  "infrastructure/wireguard-shannon-private.age".publicKeys = [ user shannon ];
+  "infrastructure/wireguard-shannon-startup-private.age".publicKeys = [ user shannon ];
+  "infrastructure/wireguard-turing-private.age".publicKeys = [ user turing ];
+  "infrastructure/wireguard-newton-private.age".publicKeys = [ user newton ];
 
-  # Twenty CRM secrets
-  "twenty-app-secret.age".publicKeys = [ user newton ];
-  "twenty-db-password.age".publicKeys = [ user newton ];
-
-  # Ghost CMS secrets
-  "ghost-db-password.age".publicKeys = [ user newton ];
-  "ghost-smtp-password.age".publicKeys = [ user newton ];
-
-  # Twenty CRM SMTP secrets
-  "twenty-smtp-password.age".publicKeys = [ user newton ];
+  # Monitoring secrets
+  "infrastructure/alertmanager-slack-webhook.age".publicKeys = [ user shannon ];
   
-  # Twenty CRM Google OAuth secrets
-  "twenty-google-client-id.age".publicKeys = [ user newton ];
-  "twenty-google-client-secret.age".publicKeys = [ user newton ];
-  
-  # Outline Wiki secrets
-  "outline-secret-key.age".publicKeys = [ user newton ];
-  "outline-utils-secret.age".publicKeys = [ user newton ];
-  "outline-db-password.age".publicKeys = [ user newton ];
-  "outline-smtp-password.age".publicKeys = [ user newton ];
-  "outline-google-client-id.age".publicKeys = [ user newton ];
-  "outline-google-client-secret.age".publicKeys = [ user newton ];
-  "outline-linear-client-id.age".publicKeys = [ user newton ];
-  "outline-linear-client-secret.age".publicKeys = [ user newton ];
-  "outline-slack-client-id.age".publicKeys = [ user newton ];
-  "outline-slack-client-secret.age".publicKeys = [ user newton ];
-  "outline-slack-verification-token.age".publicKeys = [ user newton ];
-  
-  # Restic backup secrets
-  "restic-password.age".publicKeys = [ user newton ];
-  
-  # n8n secrets
-  "n8n-encryption-key.age".publicKeys = [ user newton ];
-  "n8n-db-password.age".publicKeys = [ user newton ];
-  "n8n-basic-auth-password.age".publicKeys = [ user newton ];
-  
-  # AlertManager secrets
-  "alertmanager-slack-webhook.age".publicKeys = [ user shannon ];
+  # Backup secrets
+  "infrastructure/restic-password.age".publicKeys = [ user newton shannon einstein ];
 }
