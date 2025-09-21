@@ -627,11 +627,11 @@
         "rev": "3f0d5beb37dec5d9d5df2177e8976046225e0dde",
         "revCount": 555,
         "type": "git",
-        "url": "ssh://git@github.com/haeru-app/haeru.git"
+        "url": "ssh://git@github.com/haeru-app/haeru"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/haeru-app/haeru.git"
+        "url": "ssh://git@github.com/haeru-app/haeru"
       }
     },
     "home-manager": {
@@ -912,11 +912,11 @@
         "rev": "0e4c6c8ad16428434638fe939f3b37196d6623f8",
         "revCount": 7,
         "type": "git",
-        "url": "ssh://git@github.com/next-desk-business-solutions/services.git"
+        "url": "ssh://git@github.com/next-desk-business-solutions/services"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/next-desk-business-solutions/services.git"
+        "url": "ssh://git@github.com/next-desk-business-solutions/services"
       }
     },
     "nix-darwin": {
