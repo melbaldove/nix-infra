@@ -1,0 +1,32 @@
+groups:
+  - name: container.rules
+    rules:
+      - alert: ContainerDown
+        expr: up{job="cadvisor"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: "container"
+        annotations:
+          summary: "Container monitoring down on {{ $labels.instance }}"
+          description: "cAdvisor is not reachable on {{ $labels.instance }} for more than 2 minutes"
+          
+      - alert: ContainerHighCPU
+        expr: rate(container_cpu_usage_seconds_total{name!=""}[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          component: "container"
+        annotations:
+          summary: "High CPU usage in container {{ $labels.name }}"
+          description: 'Container {{ $labels.name }} on {{ $labels.instance }} is using {{ printf "%.1f" $value }}% CPU'
+          
+      - alert: ContainerHighMemory
+        expr: container_memory_usage_bytes{name!=""} > 1073741824  # 1GB
+        for: 5m
+        labels:
+          severity: warning
+          component: "container"
+        annotations:
+          summary: "High memory usage in container {{ $labels.name }}"
+          description: "Container {{ $labels.name }} on {{ $labels.instance }} is using {{ $value | humanize1024 }}B of memory (>1GB threshold)"

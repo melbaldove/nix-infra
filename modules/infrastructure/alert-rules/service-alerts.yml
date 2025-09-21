@@ -1,0 +1,22 @@
+groups:
+  - name: service.rules
+    rules:
+      - alert: ServiceDown
+        expr: probe_success{job="blackbox-http"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: "web"
+        annotations:
+          summary: "Service {{ $labels.instance }} is down"
+          description: "HTTP probe failed for {{ $labels.instance }} for more than 1 minute"
+          
+      - alert: ServiceSlowResponse
+        expr: probe_duration_seconds{job="blackbox-http"} > 5
+        for: 2m
+        labels:
+          severity: warning
+          service: "web"
+        annotations:
+          summary: "Service {{ $labels.instance }} responding slowly"
+          description: 'HTTP probe for {{ $labels.instance }} took {{ printf "%.2f" $value }}s (>5s threshold)'
