@@ -21,6 +21,9 @@
       user = "melbournebaldove";
       group = "users";
       
+      # Use a writable directory for the runner
+      workDir = "/home/melbournebaldove/github-runner";
+      
       # Extra packages available to the runner
       extraPackages = with pkgs; [
         docker
