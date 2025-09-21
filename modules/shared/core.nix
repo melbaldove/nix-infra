@@ -11,6 +11,8 @@
     findutils
     jq
     tmux
+    curl
+    wget
   ];
 
   nixpkgs.config.allowUnfree = true;

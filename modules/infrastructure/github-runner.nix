@@ -37,6 +37,7 @@
         git
         openssh
         deploy-rs
+        curl
       ];
       
       # Labels for this runner
