@@ -4,8 +4,8 @@
   # Setup secret for GitHub runner token
   age.secrets.github-runner-token = {
     file = ../../secrets/infrastructure/github-runner-token.age;
-    owner = "github-runner";
-    group = "github-runner";
+    owner = "melbournebaldove";
+    group = "users";
     mode = "0400";
   };
   
@@ -17,9 +17,9 @@
       tokenFile = config.age.secrets.github-runner-token.path;
       name = "einstein-runner";
       
-      # Run as a dedicated user
-      user = "github-runner";
-      group = "github-runner";
+      # Run as melbournebaldove to use existing SSH keys
+      user = "melbournebaldove";
+      group = "users";
       
       # Extra packages available to the runner
       extraPackages = with pkgs; [
@@ -38,16 +38,6 @@
     };
   };
   
-  # Create the user for the runner
-  users.users.github-runner = {
-    isSystemUser = true;
-    group = "github-runner";
-    home = "/var/lib/github-runner";
-    createHome = true;
-  };
-  
-  users.groups.github-runner = {};
-  
-  # Ensure the runner can use Nix
-  nix.settings.trusted-users = [ "github-runner" ];
+  # Ensure melbournebaldove can use Nix (already should be able to)
+  nix.settings.trusted-users = [ "melbournebaldove" ];
 }
