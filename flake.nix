@@ -11,9 +11,13 @@
     
     # Import user configs from dotfiles
     dotfiles.url = "github:melbaldove/dotfiles";
+    
+    # Import service modules from app repos
+    haeru.url = "github:melbaldove/haeru";
+    nextdesk-services.url = "path:/Users/melbournebaldove/nextdesk/services";
   };
   
-  outputs = { self, nixpkgs, deploy-rs, agenix, home-manager, dotfiles }@inputs: {
+  outputs = { self, nixpkgs, deploy-rs, agenix, home-manager, dotfiles, haeru, nextdesk-services }@inputs: {
     # All host configurations
     nixosConfigurations = {
       shannon = nixpkgs.lib.nixosSystem {
@@ -21,6 +25,7 @@
         specialArgs = { inherit inputs self; };
         modules = [ 
           ./hosts/shannon/default.nix
+          haeru.nixosModules.haeru-services
         ];
       };
       
@@ -29,6 +34,7 @@
         specialArgs = { inherit inputs self; };
         modules = [ 
           ./hosts/newton/default.nix
+          nextdesk-services.nixosModules.nextdesk-services
         ];
       };
       
