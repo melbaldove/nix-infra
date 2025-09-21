@@ -18,6 +18,9 @@
   networking.useDHCP = false; # Disable DHCP globally as we will not need it.
   # required for ssh?
   networking.interfaces.eth0.useDHCP = true;
+  
+  # Trust the deploy user for Nix store operations
+  nix.settings.trusted-users = [ "root" "deploy" "@wheel" ];
 
   boot.loader.grub.enable = true;
 
