@@ -25,6 +25,12 @@ in {
       description = "Paths to backup";
     };
     
+    exclude = mkOption {
+      type = types.listOf types.str;
+      default = [];
+      description = "Paths to exclude from backup";
+    };
+    
     pruneOpts = mkOption {
       type = types.listOf types.str;
       default = [
@@ -107,7 +113,8 @@ in {
           
           # Run backup with error handling
           echo "Starting backup of: ${concatStringsSep " " cfg.paths}"
-          if restic backup ${concatStringsSep " " cfg.paths}; then
+          EXCLUDE_OPTS="${concatMapStringsSep " " (x: "--exclude '${x}'") cfg.exclude}"
+          if restic backup $EXCLUDE_OPTS ${concatStringsSep " " cfg.paths}; then
             echo "Backup completed successfully"
             
             # Get repository stats

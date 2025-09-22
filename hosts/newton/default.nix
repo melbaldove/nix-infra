@@ -157,6 +157,9 @@
       # Service volumes will be added by nextdesk-services
       "/var/lib"
     ];
+    exclude = [
+      "/var/lib/restic-backups"  # Exclude the backup repository itself
+    ];
   };
 
   # Services will be configured by nextdesk-services flake
