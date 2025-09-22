@@ -154,8 +154,11 @@
     repository = "/var/lib/restic-backups/newton-restic";
     passwordFile = config.age.secrets.restic-password.path;
     paths = [
-      # Service volumes will be added by nextdesk-services
-      "/var/lib"
+      "/var/lib/docker/volumes/ghost_ghost-content"
+      "/var/lib/docker/volumes/ghost_db-data"
+      "/var/lib/docker/volumes/twenty_db-data"
+      "/var/lib/docker/volumes/twenty_server-local-data"
+      "/var/lib/docker/volumes/outline_outline-data"
     ];
     exclude = [
       "/var/lib/restic-backups"  # Exclude the backup repository itself
