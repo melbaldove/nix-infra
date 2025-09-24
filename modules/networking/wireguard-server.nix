@@ -48,6 +48,16 @@
           publicKey = "gm+26mzkPBb5AYomVDeJJddy2b00Ymv58f5H4icYgyY=";
           allowedIPs = [ "10.0.0.4/32" ];
         }
+        {
+          # Jena client
+          publicKey = "nSHY68JYRznk8ShbpFg66Ys1g6PwaYwXD74CvbBxwlE=";
+          allowedIPs = [ "10.0.0.5/32" ];
+        }
+        {
+          # Lemuel client
+          publicKey = "cBtB+KwlYjquVcDupGZAAuU0h0IViuOLtigOHVdNLXA=";
+          allowedIPs = [ "10.0.0.6/32" ];
+        }
       ];
     };
 
