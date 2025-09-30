@@ -17,7 +17,8 @@ in
   "infrastructure/wireguard-newton-private.age".publicKeys = [ user newton ];
 
   # Monitoring secrets
-  "infrastructure/alertmanager-slack-webhook.age".publicKeys = [ user shannon ];
+  "infrastructure/alertmanager-slack-nextdesk.age".publicKeys = [ user shannon ];
+  "infrastructure/alertmanager-slack-haeru.age".publicKeys = [ user shannon ];
   
   # Backup secrets
   "infrastructure/restic-password.age".publicKeys = [ user newton shannon einstein ];

@@ -9,8 +9,14 @@
   };
   users.groups.alertmanager = {};
 
-  age.secrets.alertmanager-slack-webhook = {
-    file = ../../secrets/infrastructure/alertmanager-slack-webhook.age;
+  age.secrets.alertmanager-slack-nextdesk = {
+    file = ../../secrets/infrastructure/alertmanager-slack-nextdesk.age;
+    owner = "alertmanager";
+    group = "alertmanager";
+  };
+
+  age.secrets.alertmanager-slack-haeru = {
+    file = ../../secrets/infrastructure/alertmanager-slack-haeru.age;
     owner = "alertmanager";
     group = "alertmanager";
   };
@@ -21,10 +27,6 @@
     listenAddress = "localhost";
     
     configuration = {
-      global = {
-        slack_api_url_file = config.age.secrets.alertmanager-slack-webhook.path;
-      };
-      
       route = {
         group_by = [ "cluster" "service" "severity" ];
         group_wait = "10s";
@@ -33,9 +35,12 @@
         receiver = "default";
         routes = [
           {
+            matchers = [ "instance=newton" "severity=~critical|warning" ];
+            receiver = "slack-nextdesk";
+          }
+          {
             matchers = [ "severity=~critical|warning" ];
-            receiver = "slack-alerts";
-            continue = true;
+            receiver = "slack-haeru";
           }
         ];
       };
@@ -45,7 +50,7 @@
           name = "default";
         }
         {
-          name = "slack-alerts";
+          name = "slack-nextdesk";
           slack_configs = [
             {
               channel = "#alerts";
@@ -59,6 +64,26 @@
                 {{ end }}
               '';
               color = ''{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'';
+              api_url_file = config.age.secrets.alertmanager-slack-nextdesk.path;
+            }
+          ];
+        }
+        {
+          name = "slack-haeru";
+          slack_configs = [
+            {
+              channel = "#alerts";
+              send_resolved = true;
+              title = "{{ .GroupLabels.cluster }} Alert";
+              text = ''
+                {{ range .Alerts }}
+                *{{ .Annotations.summary }}*
+                {{ .Annotations.description }}
+                *Labels:* {{ range .Labels.SortedPairs }}{{ .Name }}={{ .Value }} {{ end }}
+                {{ end }}
+              '';
+              color = ''{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'';
+              api_url_file = config.age.secrets.alertmanager-slack-haeru.path;
             }
           ];
         }
