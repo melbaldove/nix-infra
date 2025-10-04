@@ -37,6 +37,18 @@
   };
 
 
+  age.secrets.nix-serve-cache.file = ../../secrets/infrastructure/nix-serve-cache.age;
+
+  services.nix-serve = {
+    enable = true;
+    package = pkgs.nix-serve-ng;
+    bindAddress = "10.0.0.2";
+    port = 8081;
+    openFirewall = true;
+    secretKeyFile = config.age.secrets.nix-serve-cache.path;
+  };
+
+
   # Add ntfs-3g for NTFS support
   environment.systemPackages = with pkgs; [
     ntfs3g

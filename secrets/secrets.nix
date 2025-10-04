@@ -28,4 +28,7 @@ in
   
   # GitHub runner SSH key for einstein
   "infrastructure/github-runner-ssh-key.age".publicKeys = [ user einstein ];
+
+  # nix-serve binary cache signing key (Einstein hosts the cache)
+  "infrastructure/nix-serve-cache.age".publicKeys = [ user einstein ];
 }
