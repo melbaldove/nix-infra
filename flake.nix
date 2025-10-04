@@ -80,7 +80,6 @@
         profiles.system = {
           user = "root";
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.shannon;
-          substituteOnDestination = true;
         };
       };
       
