@@ -29,14 +29,14 @@
         ];
       };
       
-      newton = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs self; };
-        modules = [ 
-          ./hosts/newton/default.nix
-          nextdesk-services.nixosModules.nextdesk-services
-        ];
-      };
+      # newton = nixpkgs.lib.nixosSystem {
+      #   system = "x86_64-linux";
+      #   specialArgs = { inherit inputs self; };
+      #   modules = [ 
+      #     ./hosts/newton/default.nix
+      #     nextdesk-services.nixosModules.nextdesk-services
+      #   ];
+      # };
       
       einstein = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -83,13 +83,13 @@
         };
       };
       
-      newton = {
-        hostname = "newton";
-        profiles.system = {
-          user = "root";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.newton;
-        };
-      };
+      # newton = {
+      #   hostname = "newton";
+      #   profiles.system = {
+      #     user = "root";
+      #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.newton;
+      #   };
+      # };
       
       einstein = {
         hostname = "einstein";
