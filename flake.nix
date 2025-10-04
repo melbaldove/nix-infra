@@ -24,7 +24,6 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs self; };
         modules = [ 
-          inputs.agenix.nixosModules.default
           ./hosts/shannon/default.nix
           haeru.nixosModules.haeru-services
         ];
@@ -34,7 +33,6 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs self; };
         modules = [ 
-          inputs.agenix.nixosModules.default
           ./hosts/newton/default.nix
           nextdesk-services.nixosModules.nextdesk-services
         ];
@@ -44,7 +42,6 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs self; };
         modules = [ 
-          inputs.agenix.nixosModules.default
           ./hosts/einstein/default.nix
         ];
       };

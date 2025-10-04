@@ -8,7 +8,6 @@
     ../../modules/shared/ssh-keys.nix
     ../../modules/shared/promtail.nix
     ../../modules/linux/default.nix
-    ../../modules/linux/agenix.nix
     ../../modules/infrastructure/restic-backup.nix
     ../../modules/shared/node-exporter.nix
     inputs.home-manager.nixosModules.home-manager
