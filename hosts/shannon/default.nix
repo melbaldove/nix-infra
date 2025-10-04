@@ -16,6 +16,8 @@
   haeru.observability.promtail = {
     enable = true;
     lokiPushUrl = "http://10.0.0.1:3100/loki/api/v1/push";
+    includeDefaultIngestionScrape = true;
+    ingestionLogPaths = [ "/var/log/haeru/ingestion/*.jsonl" ];
     scrapeConfigs = [
       {
         job_name = "systemd-journal";
