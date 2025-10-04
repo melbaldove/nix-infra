@@ -96,7 +96,8 @@
         ];
       }
     ];
-    extraPromtailGroups = lib.optionals (lib.hasAttr "docker" config.users.groups) [ "docker" ];
+    extraPromtailGroups = [ "nginx" ]
+      ++ lib.optionals (lib.hasAttr "docker" config.users.groups) [ "docker" ];
   };
 
 
