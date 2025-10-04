@@ -60,8 +60,6 @@
     trusted-users = [ "root" "melbournebaldove" ];
     substituters = lib.mkAfter [ "http://10.0.0.2:8081" ];
     trusted-public-keys = lib.mkAfter [ "haeru-cache:m31dOHpFNZLXcN/Ts6luYMhDFvpqPjPBOkzioup9Q24=" ];
-    narCompression = "zstd";
-    narCompressionLevel = 3;
   };
 
 
