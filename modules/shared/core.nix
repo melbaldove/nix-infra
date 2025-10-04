@@ -26,7 +26,6 @@
       "https://nix-community.cachix.org"
       "https://nixpkgs-unfree.cachix.org"
       "https://devenv.cachix.org"
-      "http://10.0.0.2:8081"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
