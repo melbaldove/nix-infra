@@ -6,6 +6,11 @@ let
     (inputs.haeru.outPath + "/observability/prometheus/jobs/brain-backend.nix")
   ];
 
+  yamlFormat = pkgs.formats.yaml {};
+  haeruPrometheusAlertFiles = [
+    (yamlFormat.generate "haeru-brain-alerts.yml" (import (inputs.haeru.outPath + "/observability/prometheus/alerts/brain.nix")))
+  ];
+
 in
 {
   imports = [
@@ -54,7 +59,7 @@ in
       ./alert-rules/service-alerts.yml
       ./alert-rules/infrastructure-alerts.yml
       ./alert-rules/container-alerts.yml
-    ];
+    ] ++ haeruPrometheusAlertFiles;
     
     scrapeConfigs = [
       {
