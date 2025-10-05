@@ -88,6 +88,13 @@
         }];
       }
       {
+        job_name = "haeru-platform";
+        metrics_path = "/observability/metrics";
+        static_configs = [{
+          targets = [ "localhost:3200" ];
+        }];
+      }
+      {
         job_name = "blackbox-exporter";
         static_configs = [{
           targets = [ "localhost:9115" ];
