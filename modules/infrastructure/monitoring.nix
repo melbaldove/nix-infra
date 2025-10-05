@@ -88,7 +88,7 @@
         }];
       }
       {
-        job_name = "haeru-platform";
+        job_name = "platform-api";
         metrics_path = "/observability/metrics";
         static_configs = [{
           targets = [ "localhost:3200" ];
