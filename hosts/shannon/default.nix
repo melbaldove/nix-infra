@@ -21,6 +21,8 @@
     extraPromtailGroups = lib.optionals (lib.hasAttr "docker" config.users.groups) [ "docker" ];
   };
 
+  haeru.observability.grafana.enable = true;
+
 
   networking.hostName = "shannon";
   networking.usePredictableInterfaceNames = false;
