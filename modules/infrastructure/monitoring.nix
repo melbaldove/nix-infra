@@ -9,6 +9,8 @@ let
   yamlFormat = pkgs.formats.yaml {};
   haeruPrometheusAlertFiles = [
     (yamlFormat.generate "haeru-brain-alerts.yml" (import (inputs.haeru.outPath + "/observability/prometheus/alerts/brain.nix")))
+    (yamlFormat.generate "haeru-platform-alerts.yml" (import (inputs.haeru.outPath + "/observability/prometheus/alerts/platform.nix")))
+    (yamlFormat.generate "haeru-ingestion-alerts.yml" (import (inputs.haeru.outPath + "/observability/prometheus/alerts/ingestion.nix")))
   ];
 
 in
