@@ -1,5 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
+let
+  haeruPrometheusJobs = lib.concatMap (path: import path) [
+    (inputs.haeru.outPath + "/observability/prometheus/jobs/platform-api.nix")
+    (inputs.haeru.outPath + "/observability/prometheus/jobs/brain-backend.nix")
+  ];
+
+in
 {
   imports = [
     ./loki.nix
@@ -88,13 +95,6 @@
         }];
       }
       {
-        job_name = "platform-api";
-        metrics_path = "/observability/metrics";
-        static_configs = [{
-          targets = [ "localhost:3200" ];
-        }];
-      }
-      {
         job_name = "blackbox-exporter";
         static_configs = [{
           targets = [ "localhost:9115" ];
@@ -129,7 +129,7 @@
           }
         ];
       }
-    ];
+    ] ++ haeruPrometheusJobs;
     
     alertmanagers = [
       {
