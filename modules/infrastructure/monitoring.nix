@@ -4,6 +4,7 @@ let
   haeruPrometheusJobs = lib.concatMap (path: import path) [
     (inputs.haeru.outPath + "/observability/prometheus/jobs/platform-api.nix")
     (inputs.haeru.outPath + "/observability/prometheus/jobs/brain-backend.nix")
+    (inputs.haeru.outPath + "/observability/prometheus/jobs/worker-metrics.nix")
   ];
 
   yamlFormat = pkgs.formats.yaml {};
