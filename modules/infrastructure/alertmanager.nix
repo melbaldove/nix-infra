@@ -35,10 +35,6 @@
         receiver = "default";
         routes = [
           {
-            matchers = [ "instance=newton" "severity=~critical|warning" ];
-            receiver = "slack-nextdesk";
-          }
-          {
             matchers = [ "severity=~critical|warning" ];
             receiver = "slack-haeru";
           }

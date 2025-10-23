@@ -75,18 +75,6 @@ in
         }];
       }
       {
-        job_name = "startup";
-        static_configs = [{
-          targets = [ "10.0.1.2:9100" ]; # newton
-        }];
-      }
-      {
-        job_name = "cadvisor";
-        static_configs = [{
-          targets = [ "10.0.1.2:9200" ]; # newton cadvisor
-        }];
-      }
-      {
         job_name = "loki";
         static_configs = [{
           targets = [ "localhost:3100" ]; # loki itself
@@ -98,7 +86,6 @@ in
           targets = [
             "localhost:9080"      # shannon promtail
             "10.0.0.2:9080"       # einstein promtail
-            "10.0.1.2:9080"       # newton promtail
           ];
         }];
       }
