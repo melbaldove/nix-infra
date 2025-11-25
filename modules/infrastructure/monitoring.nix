@@ -164,6 +164,8 @@ in
     };
   };
 
+  systemd.services.grafana.serviceConfig.EnvironmentFile = config.age.secrets."haeru-grafana-db-password".path;
+
   services.prometheus.exporters.node = {
     enable = true;
     port = 9100;
