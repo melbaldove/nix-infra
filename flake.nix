@@ -25,7 +25,6 @@
         specialArgs = { inherit inputs self; };
         modules = [ 
           ./hosts/shannon/default.nix
-          haeru.nixosModules.haeru-services
         ];
       };
       

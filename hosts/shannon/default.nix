@@ -2,6 +2,7 @@
 
 {
   imports = [
+    inputs.haeru.nixosModules.haeru-services # <-- Moved here, early.
     ./hardware-configuration.nix
     ../../modules/shared/core.nix
     ../../modules/shared/ssh-keys.nix
@@ -12,6 +13,14 @@
     inputs.haeru.nixosModules.haeru-observability
     inputs.home-manager.nixosModules.home-manager
   ];
+
+  # Haeru application services - using shared config library
+  services.haeru = {
+    enable = true;
+    environment = "development";
+    domain = "api.dev.haeru.app";
+    # Secrets use defaults pointing to /run/agenix/haeru-*
+  };
 
   haeru.observability.promtail = {
     enable = true;
