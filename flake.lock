@@ -622,11 +622,11 @@
         "process-compose-flake": "process-compose-flake"
       },
       "locked": {
-        "lastModified": 1764343340,
-        "narHash": "sha256-i0vw0BB2QME23nVzVTP+R71OvcGKmjG0fBMG6oVOhTk=",
+        "lastModified": 1764349696,
+        "narHash": "sha256-qBVtO/YPguCJy7Lq78rJ4Bu1VX1XkpGjukvXIFHxZgQ=",
         "ref": "refs/heads/main",
-        "rev": "909c3e1de23186c1365ccce8235cdbcdb8482532",
-        "revCount": 1516,
+        "rev": "48cacfc4ecd06c2722a48c56ee320a26e4d0f0c0",
+        "revCount": 1517,
         "type": "git",
         "url": "ssh://git@github.com/haeru-app/haeru"
       },
