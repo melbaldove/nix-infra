@@ -618,14 +618,15 @@
       "inputs": {
         "dream2nix": "dream2nix",
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_11"
+        "nixpkgs": "nixpkgs_11",
+        "process-compose-flake": "process-compose-flake"
       },
       "locked": {
-        "lastModified": 1764248499,
-        "narHash": "sha256-63Mtla3tbZ1ktMIV9tE6vDNy53l9lQiOjtAEkfDr0Ro=",
+        "lastModified": 1764309378,
+        "narHash": "sha256-lR32dbgz7TkR8bK3WGx25fg/MQPfMSv1JnMO/ns++xM=",
         "ref": "refs/heads/main",
-        "rev": "616d976e230d505786c83cdc7199d91ea7d196f8",
-        "revCount": 1503,
+        "rev": "2b6f7c08ade652d100b875f7bc18c820561050bf",
+        "revCount": 1504,
         "type": "git",
         "url": "ssh://git@github.com/haeru-app/haeru"
       },
@@ -1360,6 +1361,21 @@
       "original": {
         "owner": "next-desk-business-solutions",
         "repo": "outline",
+        "type": "github"
+      }
+    },
+    "process-compose-flake": {
+      "locked": {
+        "lastModified": 1763591764,
+        "narHash": "sha256-fWFTm4t/t44f0NAV2wsmMpqHOYKbAPxkwjtgxqcD1GE=",
+        "owner": "Platonic-Systems",
+        "repo": "process-compose-flake",
+        "rev": "1a991178ac404862f002170b5f4228b49011f14e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Platonic-Systems",
+        "repo": "process-compose-flake",
         "type": "github"
       }
     },
