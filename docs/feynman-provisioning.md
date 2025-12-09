@@ -26,7 +26,14 @@ Feynman is the dedicated haeru production server on Hetzner Cloud.
 
 ## Phase 4: Haeru Services (TODO)
 
-- [ ] Configure haeru secrets (platform.env, brain.env, etc.)
+### 4.1 Secrets Configuration
+- [ ] Create prod/ secrets subdirectory
+- [ ] Update secrets.nix with feynman and prod entries
+- [ ] Generate self-created credentials (DB password, JWT secret, etc.)
+- [ ] Create prod secret files with placeholders
+- [ ] Fill in external API keys (see Manual Tasks below)
+
+### 4.2 Service Deployment
 - [ ] Enable haeru-services NixOS module
 - [ ] Enable haeru-observability NixOS module
 - [ ] Set up PostgreSQL
@@ -37,6 +44,37 @@ Feynman is the dedicated haeru production server on Hetzner Cloud.
 - [ ] Deploy brain services
 - [ ] Configure Promtail for log shipping to Shannon
 - [ ] Verify services via observability dashboard
+
+## Manual Tasks (User)
+
+These require manual creation in external services:
+
+### AWS S3
+- [ ] Create S3 bucket: `haeru-prod-bucket` in us-east-1
+- [ ] Create IAM user with S3 access, get `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+- [ ] Set up CloudFront CDN for `cdn.haeru.app`
+
+### AI/ML API Keys
+- [ ] Groq API key: https://console.groq.com
+- [ ] OpenAI API key: https://platform.openai.com
+- [ ] OpenRouter API key: https://openrouter.ai
+- [ ] FAL API key: https://fal.ai
+- [ ] ZAI API key
+
+### Firebase (new prod project recommended)
+- [ ] Create Firebase project for production
+- [ ] Enable Authentication
+- [ ] Generate service account JSON
+- [ ] Note: `GOOGLE_SERVER_CLIENT_ID` and `GOOGLE_CLIENT_ID_*` come from Google Cloud Console OAuth
+
+### RevenueCat
+- [ ] Create prod app in RevenueCat dashboard
+- [ ] Get `REVENUECAT_SECRET_API_KEY`
+- [ ] Get `REVENUECAT_WEBHOOK_AUTH_HEADER_VALUE`
+
+### Google OAuth (for Console)
+- [ ] Create OAuth 2.0 credentials in Google Cloud Console
+- [ ] Get `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` for console app
 
 ## Server Details
 
