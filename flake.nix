@@ -116,7 +116,7 @@
       };
 
       feynman = {
-        hostname = "5.161.56.109";
+        hostname = "10.0.1.3";  # VPN IP - SSH only via wg-startup
         profiles.system = {
           user = "root";
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.feynman;

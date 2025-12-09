@@ -20,6 +20,19 @@
   networking.useDHCP = false;
   networking.interfaces.eth0.useDHCP = true;
 
+  # Firewall: SSH only via VPN, not public internet
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ ]; # No public TCP ports
+    allowedUDPPorts = [ ]; # No public UDP ports
+    interfaces.wg-startup = {
+      allowedTCPPorts = [ 22 ]; # SSH only on VPN interface
+    };
+  };
+
+  # Disable the default SSH port opening
+  services.openssh.openFirewall = false;
+
   # Trust the deploy user for Nix store operations
   nix.settings.trusted-users = [ "root" "deploy" "@wheel" ];
 
