@@ -87,6 +87,16 @@
           publicKey = "zDdaCFAfwPsb3r1rWu8pSmSrWFKqXRL4ll3WcZad7Fg=";
           allowedIPs = [ "10.0.1.3/32" ];
         }
+        {
+          # Einstein home server/gateway
+          publicKey = "S9gL9Rg+/JtzcwwUOQT4fJFjm4x/ONrGwzdjeH85jHc=";
+          allowedIPs = [ "10.0.1.4/32" ];
+        }
+        {
+          # Turing client
+          publicKey = "w/iizjwjWD6c3zmGYcCL0/ThHCW0odzEVbiq2FRQdBg=";
+          allowedIPs = [ "10.0.1.5/32" ];
+        }
       ];
     };
   };

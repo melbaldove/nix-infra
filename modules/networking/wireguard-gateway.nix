@@ -15,6 +15,7 @@
   };
 
   networking.wireguard.interfaces = {
+    # Personal VPN network
     wg0 = {
       ips = [ "10.0.0.2/24" ];
 
@@ -39,6 +40,23 @@
           publicKey = "8jFBCynKH6dwA/T/duyIg7n2GSaC1gBsjJREYjWdyU4=";
           allowedIPs = [ "10.0.0.0/24" ];
           endpoint = "shannon:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+
+    # Startup VPN network
+    wg-startup = {
+      ips = [ "10.0.1.4/24" ];
+
+      privateKeyFile = config.age.secrets.wireguard-einstein-private.path;
+
+      peers = [
+        {
+          # Shannon VPN server (startup network)
+          publicKey = "VyeqpVLFr+62pyzKUI4Dq/WZXS5pZR/Ps2Yx3aNKgm0=";
+          allowedIPs = [ "10.0.1.0/24" ];
+          endpoint = "shannon:51821";
           persistentKeepalive = 25;
         }
       ];
