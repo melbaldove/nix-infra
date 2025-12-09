@@ -17,7 +17,8 @@
 
   networking.hostName = "einstein";
   networking.extraHosts = ''
-    172.236.148.68 shannon
+    10.0.0.1 shannon
+    10.0.1.3 feynman
     157.180.91.120 newton
   '';
 
