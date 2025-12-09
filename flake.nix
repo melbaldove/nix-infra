@@ -15,9 +15,13 @@
     # Import service modules from app repos (use SSH for private repos)
     haeru.url = "git+ssh://git@github.com/haeru-app/haeru";
     nextdesk-services.url = "git+ssh://git@github.com/next-desk-business-solutions/services";
+
+    # Disko for declarative disk partitioning
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
   
-  outputs = { self, nixpkgs, deploy-rs, agenix, home-manager, dotfiles, haeru, nextdesk-services }@inputs: {
+  outputs = { self, nixpkgs, deploy-rs, agenix, home-manager, dotfiles, haeru, nextdesk-services, disko }@inputs: {
     # All host configurations
     nixosConfigurations = {
       shannon = nixpkgs.lib.nixosSystem {
@@ -40,8 +44,16 @@
       einstein = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs self; };
-        modules = [ 
+        modules = [
           ./hosts/einstein/default.nix
+        ];
+      };
+
+      feynman = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs self; };
+        modules = [
+          ./hosts/feynman/default.nix
         ];
       };
     };
@@ -100,6 +112,14 @@
         profiles.system = {
           user = "root";
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.einstein;
+        };
+      };
+
+      feynman = {
+        hostname = "feynman";
+        profiles.system = {
+          user = "root";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.feynman;
         };
       };
     };
