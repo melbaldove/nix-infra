@@ -19,15 +19,16 @@ Feynman is the dedicated haeru production server on Hetzner Cloud.
 ## Phase 3: Deployment Pipeline ✅
 
 - [x] Add feynman to deploy.nodes in flake.nix
-- [x] Configure deploy-rs with IP address (5.161.56.109)
+- [x] Configure deploy-rs with VPN IP (10.0.1.3)
 - [x] Verify deployment from einstein works
 - [x] Document agenix programmatic encryption (AGENTS.md)
+- [x] Restrict SSH to VPN only (disable public SSH)
 
 ## Phase 4: Haeru Services (TODO)
 
+- [ ] Configure haeru secrets (platform.env, brain.env, etc.)
 - [ ] Enable haeru-services NixOS module
 - [ ] Enable haeru-observability NixOS module
-- [ ] Configure haeru secrets (platform.env, brain.env, etc.)
 - [ ] Set up PostgreSQL
 - [ ] Set up Redis
 - [ ] Set up RabbitMQ
