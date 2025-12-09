@@ -8,13 +8,6 @@
   networking.firewall = {
     allowedUDPPorts = [ 51820 51821 ];
     trustedInterfaces = [ "wg-personal" "wg-startup" ];
-    # Allow forwarding between peers on wg-startup (infrastructure mesh)
-    extraCommands = ''
-      iptables -A FORWARD -i wg-startup -o wg-startup -j ACCEPT
-    '';
-    extraStopCommands = ''
-      iptables -D FORWARD -i wg-startup -o wg-startup -j ACCEPT || true
-    '';
   };
 
   networking.nat = {

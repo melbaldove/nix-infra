@@ -8,12 +8,28 @@
     ../../modules/shared/ssh-keys.nix
     ../../modules/linux/default.nix
     ../../modules/linux/agenix.nix
+    inputs.haeru.nixosModules.haeru-services
+    inputs.haeru.nixosModules.haeru-observability
     inputs.home-manager.nixosModules.home-manager
   ];
 
-  # TODO: Add haeru services after initial provisioning
-  # inputs.haeru.nixosModules.haeru-services
-  # inputs.haeru.nixosModules.haeru-observability
+  # Haeru production services
+  services.haeru = {
+    enable = true;
+    environment = "production";
+    domain = "api.haeru.app";
+    consoleDomain = "console.haeru.app";
+  };
+
+  # Observability: ship logs to Shannon's Loki
+  haeru.observability.promtail = {
+    enable = true;
+    lokiPushUrl = "http://10.0.1.1:3100/loki/api/v1/push";
+    includeSystemJournalScrape = true;
+    includeNginxScrapes = true;
+  };
+
+  haeru.observability.grafana.enable = true;
 
   networking.hostName = "feynman";
   networking.usePredictableInterfaceNames = false;
