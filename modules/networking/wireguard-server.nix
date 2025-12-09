@@ -82,6 +82,11 @@
           publicKey = "0bukNqCr3lUH0OyH4uNvYUC/JfxfuEMDpAN49/YHWgQ=";
           allowedIPs = [ "10.0.1.2/32" ];
         }
+        {
+          # Feynman haeru production server
+          publicKey = "zDdaCFAfwPsb3r1rWu8pSmSrWFKqXRL4ll3WcZad7Fg=";
+          allowedIPs = [ "10.0.1.3/32" ];
+        }
       ];
     };
   };
