@@ -19,6 +19,9 @@
     environment = "production";
     domain = "api.haeru.app";
     consoleDomain = "console.haeru.app";
+
+    # Expose metrics on VPN interface for Shannon's Prometheus to scrape
+    bindings.metricsAddress = "10.0.1.3";
   };
 
   # Observability: ship logs to Shannon's Loki
@@ -36,13 +39,19 @@
   networking.useDHCP = false;
   networking.interfaces.eth0.useDHCP = true;
 
-  # Firewall: SSH only via VPN, not public internet
+  # Firewall: strict production lockdown
+  # Public internet: only nginx (80/443)
+  # VPN: SSH and metrics for Prometheus scraping
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ ]; # No public TCP ports
-    allowedUDPPorts = [ ]; # No public UDP ports
+    allowedTCPPorts = [ 80 443 ]; # nginx only
+    allowedUDPPorts = [ ];
     interfaces.wg-startup = {
-      allowedTCPPorts = [ 22 ]; # SSH only on VPN interface
+      allowedTCPPorts = [
+        22    # SSH
+        9618  # Memgraph ingest worker metrics
+        9619  # Memgraph consolidate worker metrics
+      ];
     };
   };
 

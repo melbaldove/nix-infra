@@ -62,5 +62,21 @@
     users.melbournebaldove = import "${inputs.dotfiles}/users/melbournebaldove/core.nix";
   };
 
+  # Firewall: dev/observability server
+  # Public: HTTP/HTTPS + SSH
+  # VPN: Grafana, Loki, and inter-node communication
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22 80 443 ]; # SSH + nginx
+    allowedUDPPorts = [ 51820 51821 ]; # WireGuard
+    interfaces.wg-startup = {
+      allowedTCPPorts = [
+        3000  # Grafana
+        3100  # Loki
+        9090  # Prometheus
+      ];
+    };
+  };
+
   system.stateVersion = "24.11";
 }
