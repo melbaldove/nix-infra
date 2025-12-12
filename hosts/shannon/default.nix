@@ -73,6 +73,7 @@
       allowedTCPPorts = [
         3000  # Grafana
         3100  # Loki
+        4317  # Phoenix gRPC collector (OTEL traces from prod)
         9090  # Prometheus
       ];
     };
