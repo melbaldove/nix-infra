@@ -49,6 +49,8 @@
     interfaces.wg-startup = {
       allowedTCPPorts = [
         22    # SSH
+        3200  # Platform API metrics
+        8001  # Brain backend metrics
         9610  # Platform workers metrics
         9615  # Weekly postcard worker metrics
         9616  # Daily summary worker metrics
