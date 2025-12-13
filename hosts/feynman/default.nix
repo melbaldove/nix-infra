@@ -49,6 +49,9 @@
     interfaces.wg-startup = {
       allowedTCPPorts = [
         22    # SSH
+        9610  # Platform workers metrics
+        9615  # Weekly postcard worker metrics
+        9616  # Daily summary worker metrics
         9618  # Memgraph ingest worker metrics
         9619  # Memgraph consolidate worker metrics
       ];
