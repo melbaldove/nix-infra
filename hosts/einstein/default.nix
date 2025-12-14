@@ -37,11 +37,6 @@
     extraGroups = [ "wheel" "users" ];
   };
 
-  # Allow github-runner to SSH as root for self-deployment
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL9kxNdfEm/cwRLiYX5JokRQTnb2//LMXHJFR4SYnTxA github-runner@einstein"
-  ];
-
 
   age.secrets.nix-serve-cache.file = ../../secrets/infrastructure/nix-serve-cache.age;
 
