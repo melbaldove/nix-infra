@@ -70,4 +70,13 @@
   
   # Ensure the runner can use Nix
   nix.settings.trusted-users = [ "github-runner" ];
+  
+  # Allow github-runner to run nixos-rebuild without password
+  security.sudo.extraRules = [{
+    users = [ "github-runner" ];
+    commands = [{
+      command = "ALL";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
 }
