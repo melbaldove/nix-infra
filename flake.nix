@@ -112,6 +112,10 @@
         profiles.system = {
           user = "root";
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.einstein;
+          sshOpts = [
+            "-o" "StrictHostKeyChecking=accept-new"
+            "-o" "UserKnownHostsFile=~/.ssh/known_hosts"
+          ];
         };
       };
 
