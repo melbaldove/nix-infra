@@ -17,7 +17,7 @@
 
   networking.hostName = "einstein";
   networking.extraHosts = ''
-    172.236.148.68 shannon  # Public IP needed for WireGuard endpoint
+    10.0.0.1 shannon  # VPN IP for SSH deployment
     10.0.1.3 feynman
     157.180.91.120 newton
   '';
