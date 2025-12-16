@@ -22,6 +22,9 @@
 
     # Expose metrics on VPN interface for Shannon's Prometheus to scrape
     bindings.metricsAddress = "10.0.1.3";
+
+    # Phoenix observability runs on Shannon only
+    phoenix.enable = false;
   };
 
   # Observability: ship logs to Shannon's Loki
@@ -32,7 +35,8 @@
     includeNginxScrapes = true;
   };
 
-  haeru.observability.grafana.enable = true;
+  # Grafana runs on Shannon only - feynman ships metrics/logs there
+  haeru.observability.grafana.enable = false;
 
   networking.hostName = "feynman";
   networking.usePredictableInterfaceNames = false;
@@ -49,6 +53,7 @@
     interfaces.wg-startup = {
       allowedTCPPorts = [
         22    # SSH
+        5432  # PostgreSQL (for Shannon Grafana business KPIs dashboard)
         3200  # Platform API metrics
         8001  # Brain backend metrics
         9610  # Platform workers metrics
