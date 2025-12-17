@@ -164,7 +164,10 @@ in
     };
   };
 
-  systemd.services.grafana.serviceConfig.EnvironmentFile = config.age.secrets."haeru-grafana-db-password".path;
+  systemd.services.grafana.serviceConfig.EnvironmentFile = [
+    config.age.secrets."haeru-grafana-db-password".path
+    config.age.secrets."haeru-grafana-db-password-prod".path
+  ];
 
   services.prometheus.exporters.node = {
     enable = true;
