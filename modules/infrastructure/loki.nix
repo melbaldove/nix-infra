@@ -64,6 +64,16 @@
     };
   };
   
+  # Ensure Loki data directories exist with correct ownership
+  # Without this, Loki can't write to /var/lib/loki and data goes to tmpfs
+  systemd.tmpfiles.rules = [
+    "d /var/lib/loki 0755 loki loki -"
+    "d /var/lib/loki/chunks 0755 loki loki -"
+    "d /var/lib/loki/tsdb 0755 loki loki -"
+    "d /var/lib/loki/tsdb-cache 0755 loki loki -"
+    "d /var/lib/loki/compactor 0755 loki loki -"
+  ];
+
   # Firewall configuration - allow Loki port on VPN interfaces
   networking.firewall.interfaces.wg-personal.allowedTCPPorts = [ 3100 ];
   networking.firewall.interfaces.wg-startup.allowedTCPPorts = [ 3100 ];
