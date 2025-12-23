@@ -21,6 +21,12 @@
     group = "alertmanager";
   };
 
+  age.secrets.alertmanager-slack-haeru-prod = {
+    file = ../../secrets/infrastructure/alertmanager-slack-haeru-prod.age;
+    owner = "alertmanager";
+    group = "alertmanager";
+  };
+
   services.prometheus.alertmanager = {
     enable = true;
     port = 9093;
@@ -83,7 +89,7 @@
                 {{ end }}
               '';
               color = ''{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'';
-              api_url_file = config.age.secrets.alertmanager-slack-haeru.path;
+              api_url_file = config.age.secrets.alertmanager-slack-haeru-prod.path;
             }
           ];
         }

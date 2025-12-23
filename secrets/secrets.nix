@@ -21,6 +21,7 @@ in
   # Monitoring secrets
   "infrastructure/alertmanager-slack-nextdesk.age".publicKeys = [ user shannon ];
   "infrastructure/alertmanager-slack-haeru.age".publicKeys = [ user shannon ];
+  "infrastructure/alertmanager-slack-haeru-prod.age".publicKeys = [ user shannon ];
   
   # Backup secrets
   "infrastructure/restic-password.age".publicKeys = [ user newton shannon einstein ];
