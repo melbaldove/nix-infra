@@ -61,6 +61,7 @@
         9616  # Daily summary worker metrics
         9618  # Memgraph ingest worker metrics
         9619  # Memgraph consolidate worker metrics
+        15692 # RabbitMQ prometheus metrics
       ];
     };
   };

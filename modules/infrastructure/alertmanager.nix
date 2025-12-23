@@ -35,8 +35,12 @@
         receiver = "default";
         routes = [
           {
+            matchers = [ ''environment="production"'' "severity=~critical|warning" ];
+            receiver = "slack-haeru-prod";
+          }
+          {
             matchers = [ "severity=~critical|warning" ];
-            receiver = "slack-haeru";
+            receiver = "slack-haeru-dev";
           }
         ];
       };
@@ -65,12 +69,31 @@
           ];
         }
         {
-          name = "slack-haeru";
+          name = "slack-haeru-prod";
           slack_configs = [
             {
               channel = "#alerts";
               send_resolved = true;
-              title = "{{ .GroupLabels.cluster }} Alert";
+              title = ":rotating_light: Production Alert";
+              text = ''
+                {{ range .Alerts }}
+                *{{ .Annotations.summary }}*
+                {{ .Annotations.description }}
+                *Labels:* {{ range .Labels.SortedPairs }}{{ .Name }}={{ .Value }} {{ end }}
+                {{ end }}
+              '';
+              color = ''{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'';
+              api_url_file = config.age.secrets.alertmanager-slack-haeru.path;
+            }
+          ];
+        }
+        {
+          name = "slack-haeru-dev";
+          slack_configs = [
+            {
+              channel = "#dev-alerts";
+              send_resolved = true;
+              title = "Development Alert";
               text = ''
                 {{ range .Alerts }}
                 *{{ .Annotations.summary }}*
