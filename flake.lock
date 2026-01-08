@@ -1021,11 +1021,11 @@
         "nixpkgs": "nixpkgs_20"
       },
       "locked": {
-        "lastModified": 1767859109,
-        "narHash": "sha256-rVsMjfw23aKevVwmg2y5vVqCTDwZIrvVDfRhDNAo7DQ=",
+        "lastModified": 1767867571,
+        "narHash": "sha256-+WSdOPmy8XPOcbWYZAz3Z1k+aGkab81QaHYuqs68qLc=",
         "ref": "refs/heads/main",
-        "rev": "80b2ade3e2c463e116bb46cb794be9690604d293",
-        "revCount": 2371,
+        "rev": "4b4011ee28a489493384f09e41558ba16fc18f21",
+        "revCount": 2372,
         "type": "git",
         "url": "ssh://git@github.com/haeru-app/haeru"
       },
