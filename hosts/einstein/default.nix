@@ -50,6 +50,9 @@
     }];
   }];
 
+  # Override github-runner service to allow privilege escalation via sudo
+  systemd.services.github-runner-haeru-runner.serviceConfig.NoNewPrivileges = lib.mkForce false;
+
   age.secrets.nix-serve-cache.file = ../../secrets/infrastructure/nix-serve-cache.age;
 
   services.nix-serve = {
