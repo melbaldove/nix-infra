@@ -41,6 +41,14 @@
     extraGroups = [ "wheel" "users" ];
   };
 
+  # Allow github-runner to run nixos-rebuild with sudo for automated deployments
+  security.sudo.extraRules = [{
+    users = [ "github-runner" ];
+    commands = [{
+      command = "/run/current-system/sw/bin/nixos-rebuild";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
 
   age.secrets.nix-serve-cache.file = ../../secrets/infrastructure/nix-serve-cache.age;
 
