@@ -17,6 +17,16 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # Automatic garbage collection
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  # Limit boot configurations to prevent /boot from filling up
+  boot.loader.systemd-boot.configurationLimit = 20;
+
   # Necessary for using flakes on this system.
   nix.settings = {
     experimental-features = "nix-command flakes";
