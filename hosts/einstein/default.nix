@@ -44,6 +44,33 @@
 
   programs.zsh.enable = true;
 
+  # Enable nix-ld for dynamically linked binaries (Playwright Chromium)
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    glib
+    nss
+    nspr
+    atk
+    at-spi2-atk
+    cups
+    dbus
+    expat
+    libxkbcommon
+    xorg.libX11
+    xorg.libXcomposite
+    xorg.libXdamage
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXrandr
+    xorg.libxcb
+    libgbm
+    cairo
+    pango
+    alsa-lib
+    at-spi2-core
+    systemdLibs
+  ];
+
   # Allow github-runner to run nixos-rebuild with sudo for automated deployments
   security.sudo.extraRules = [{
     users = [ "github-runner" ];
@@ -71,6 +98,7 @@
   # Add ntfs-3g for NTFS support
   environment.systemPackages = with pkgs; [
     ntfs3g
+    chromium
   ];
 
 
