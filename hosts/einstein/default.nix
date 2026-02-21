@@ -38,8 +38,11 @@
 
   users.users.melbournebaldove = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     extraGroups = [ "wheel" "users" ];
   };
+
+  programs.zsh.enable = true;
 
   # Allow github-runner to run nixos-rebuild with sudo for automated deployments
   security.sudo.extraRules = [{
@@ -82,6 +85,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "backup";
     extraSpecialArgs = { inherit inputs; };
     users.melbournebaldove = {
       imports = [
@@ -94,8 +98,18 @@
 
   monitoring.nodeExporter.listenAddress = "10.0.0.2";
 
-  # Allow promtail port on VPN interface
-  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 9080 ];
+  # Allow promtail and openclaw gateway on VPN interface only
+  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 9080 18789 ];
+
+  # NAT VPN traffic to openclaw gateway on loopback
+  boot.kernel.sysctl."net.ipv4.conf.wg0.route_localnet" = 1;
+  networking.nat.enable = true;
+  networking.firewall.extraCommands = ''
+    iptables -t nat -A PREROUTING -i wg0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789
+  '';
+  networking.firewall.extraStopCommands = ''
+    iptables -t nat -D PREROUTING -i wg0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789 2>/dev/null || true
+  '';
 
   system.stateVersion = "24.05";
 }
