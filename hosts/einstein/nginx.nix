@@ -14,7 +14,7 @@
 
     virtualHosts.blather = {
       default = true;
-      listen = [{ addr = "10.0.0.2"; port = 80; }];
+      listen = [{ addr = "10.0.0.2"; port = 8090; }];
 
       # /api/* → API on :3000 (strip the /api prefix; routes mount bare).
       # proxyWebsockets handles /api/ws/events upgrade too.
