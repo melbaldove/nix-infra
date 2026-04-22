@@ -13,6 +13,7 @@
     ../../modules/networking/wireguard-gateway.nix
     ../../modules/shared/node-exporter.nix
     ../../modules/infrastructure/github-runner.nix
+    ./nginx.nix
     inputs.home-manager.nixosModules.home-manager
   ];
 
