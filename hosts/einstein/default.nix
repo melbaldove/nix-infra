@@ -2,7 +2,6 @@
 
 {
   imports = [
-    inputs.haeru.nixosModules.amplify
     ./hardware-configuration.nix
     ../../modules/shared/core.nix
     ../../modules/shared/ssh-keys.nix
@@ -16,9 +15,6 @@
     ./nginx.nix
     inputs.home-manager.nixosModules.home-manager
   ];
-
-  # Amplify distribution engine
-  services.amplify.enable = true;
 
   networking.hostName = "einstein";
   networking.extraHosts = ''
