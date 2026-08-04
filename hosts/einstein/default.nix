@@ -140,5 +140,17 @@
     iptables -t nat -D PREROUTING -i wg0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789 2>/dev/null || true
   '';
 
+  # NVIDIA RTX 2070 SUPER (TU104) - enables NVENC hardware video encoding.
+  # Proprietary driver rather than `open`: better-proven NVENC support on Turing.
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];  # loads the module; does not enable X
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    nvidiaSettings = false;      # headless host, no GUI
+    powerManagement.enable = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
   system.stateVersion = "24.05";
 }
