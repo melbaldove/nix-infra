@@ -20,6 +20,7 @@
 - Do not add tags, OAuth credentials, reusable auth keys, subnet routes, or exit nodes.
 - Keep LAN SSH available on Einstein and Eisenhower.
 - Do not print secret values or private keys.
+- Do not change `hy_staging_wg0`, `hy_prod_wg0`, Proton VPN, or the WireGuard Mac application that manages the Hey You tunnels.
 - Do not change, stop, or delete the Shannon and Feynman provider resources. Melbourne will decommission both resources manually.
 - Distinguish repository builds, live host checks, and cloud-provider evidence in the final report.
 
@@ -799,45 +800,22 @@ sudo darwin-rebuild switch --flake .#turing
 
 Expected: exit 0 and Tailscale remains online.
 
-- [ ] **Step 2: Record and disconnect the old WireGuard tunnel**
+- [ ] **Step 2: Verify the retired personal tunnel without changing work VPNs**
 
-Record the interface that currently carries each old private subnet:
-
-```bash
-wireguard_route_interface_0="$(route -n get 10.0.0.1 | awk '/interface:/{print $2}')"
-wireguard_route_interface_1="$(route -n get 10.0.1.1 | awk '/interface:/{print $2}')"
-case "$wireguard_route_interface_0" in utun*) ;; *) exit 1 ;; esac
-case "$wireguard_route_interface_1" in utun*) ;; *) exit 1 ;; esac
-test "$wireguard_route_interface_0" = "$wireguard_route_interface_1"
-```
-
-In the WireGuard Mac application, deactivate the tunnel that routes `10.0.0.0/24` and `10.0.1.0/24`. Quit the application. Do not change the Proton VPN system extension.
-
-Verify:
+Run:
 
 ```bash
-new_route_interface_0="$(route -n get 10.0.0.1 2>/dev/null | awk '/interface:/{print $2}' || true)"
-new_route_interface_1="$(route -n get 10.0.1.1 2>/dev/null | awk '/interface:/{print $2}' || true)"
-test "$new_route_interface_0" != "$wireguard_route_interface_0"
-test "$new_route_interface_1" != "$wireguard_route_interface_1"
-pgrep -fl '/Applications/WireGuard.app/' && exit 1 || true
+scutil --nc list
+test "$(scutil --nc status 'wg-personal' | head -1)" = Disconnected
+test "$(scutil --nc status 'hy_staging_wg0' | head -1)" = Connected
 tailscale status
 ```
 
-Expected: neither old subnet uses the recorded WireGuard interface, the WireGuard app is not running, and Tailscale still reports `Running`. A route can use another interface, such as the LAN or Proton VPN interface.
+Expected: `wg-personal` is disconnected, the active Hey You staging tunnel remains connected, and Tailscale reports `Running`. Do not infer tunnel ownership from a `10.0.0.0/16` route because the Hey You staging tunnel owns that route.
 
-- [ ] **Step 3: Move the retired WireGuard application to Trash**
+- [ ] **Step 3: Keep the WireGuard Mac application for Hey You access**
 
-Run after the route check passes:
-
-```bash
-test -d /Applications/WireGuard.app
-test ! -e /Users/melbournebaldove/.Trash/WireGuard.app
-sudo mv /Applications/WireGuard.app /Users/melbournebaldove/.Trash/WireGuard.app
-test -d /Users/melbournebaldove/.Trash/WireGuard.app
-```
-
-Expected: the command stops if a Trash item has the same name. Otherwise, the app is recoverable from Trash. The Proton VPN WireGuard extension remains installed and unchanged.
+Do not stop or remove `/Applications/WireGuard.app`. It manages `hy_staging_wg0` and `hy_prod_wg0`, which are outside this migration. The retired personal dependency is removed by the repository changes and the disconnected `wg-personal` state.
 
 - [ ] **Step 4: Verify both OpenSSH destinations through their Tailscale addresses**
 

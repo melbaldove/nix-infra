@@ -56,6 +56,8 @@ If Tailscale enrollment fails, the migration stops. LAN SSH remains the repair p
 
 Turing will stop importing `modules/system/darwin/wireguard-client.nix`. WireGuard packages and obsolete WireGuard setup or connectivity scripts will be removed. The Tailscale Mac application stays outside Nix because it is the appropriate interactive client for Turing.
 
+Turing will keep the standalone WireGuard Mac application because it also manages the unrelated `hy_staging_wg0` and `hy_prod_wg0` work tunnels. The retired `wg-personal` tunnel must remain disconnected. The migration must not stop, remove, or change either Hey You tunnel or Proton VPN.
+
 Eisenhower will set `services.tailscale.enable = true` and will enable the nix-darwin OpenSSH service. Its user configuration will declare Turing's public key. The existing power and Wi-Fi recovery configuration will remain unchanged.
 
 The Eisenhower evaluation test will check the `tailscaled` launch daemon, OpenSSH, and the authorized key. Repository documentation will describe Tailscale and the remaining hosts. It will not describe Shannon services or either WireGuard subnet.
@@ -105,7 +107,7 @@ Live acceptance requires all of these results:
 - The route to each `100.x` address uses Tailscale.
 - `ssh einstein` and `ssh eisenhower` use OpenSSH and return the expected hostname and user.
 - LAN SSH still works for local recovery.
-- WireGuard interfaces and launch jobs are absent from the remaining hosts.
+- The retired personal WireGuard interfaces and launch jobs are absent from the managed host configurations. Unrelated Hey You WireGuard tunnels on Turing remain unchanged.
 - The old Eisenhower tailnet identity is absent.
 - The final handoff gives Melbourne the provider and public-address evidence for manual deletion.
 
