@@ -48,7 +48,7 @@ The migration will take place in one maintenance window while all remaining host
 9. Remove the old offline Eisenhower identity from the tailnet after the replacement node works.
 10. Remove Shannon, Feynman, and the WireGuard configuration from the repositories.
 11. Build all remaining system configurations again.
-12. Resolve the exact Shannon and Feynman cloud instances, show their identities, and delete them only after a final target check.
+12. Report the known provider and public-address evidence for Shannon and Feynman so Melbourne can decommission them manually.
 
 If Tailscale enrollment fails, the migration stops. LAN SSH remains the repair path. WireGuard and the cloud hosts stay in place until OpenSSH works over Tailscale to both hosts.
 
@@ -82,11 +82,11 @@ After each host is online, its device-key expiry will be disabled in the Tailsca
 
 The tailnet will not manage SSH authentication. Standard Tailscale network policy will allow TCP port 22 from Turing to the two remote hosts. OpenSSH will verify Turing's key on each destination.
 
-## Cloud Host Removal
+## Cloud Host Handoff
 
-Shannon and Feynman can be deleted with all data. The repository does not establish the current cloud-provider instance identity, so implementation must resolve each provider, account, instance identifier, hostname, and public address through read-only checks.
+Shannon and Feynman can be deleted with all data. Melbourne will perform both provider deletions manually. The implementation will not delete, stop, resize, or otherwise change either cloud resource.
 
-The deletion step must show the resolved targets before it changes provider state. It must not use a hostname or stored IP as the sole deletion selector. After deletion, the implementation will confirm that billing resources and instances no longer exist. The final report will state what was deleted and whether recovery is possible.
+The handoff will report the evidence available from the repositories and public address ownership. Feynman is documented as a Hetzner Cloud server at `5.161.56.109`. Shannon uses Akamai address `172.236.148.68`, which is consistent with Linode. Melbourne must confirm the provider account and instance identifier in each provider console before deletion.
 
 ## Tests and Acceptance Criteria
 
@@ -107,12 +107,12 @@ Live acceptance requires all of these results:
 - LAN SSH still works for local recovery.
 - WireGuard interfaces and launch jobs are absent from the remaining hosts.
 - The old Eisenhower tailnet identity is absent.
-- Shannon and Feynman are absent from the provider account after the final approved deletion.
+- The final handoff gives Melbourne the provider and public-address evidence for manual deletion.
 
-Repository builds do not prove live connectivity or provider deletion. The final report will keep build evidence, live host evidence, and provider evidence separate.
+Repository builds do not prove live connectivity or provider account state. The final report will keep build evidence, live host evidence, and provider evidence separate.
 
 ## Rollback
 
-Before provider deletion, LAN SSH can activate the previous NixOS or nix-darwin generation on Einstein or Eisenhower. Turing can also return to its previous Darwin generation. The old WireGuard configuration remains recoverable from Git until the cloud hosts are deleted.
+Before manual provider deletion, LAN SSH can activate the previous NixOS or nix-darwin generation on Einstein or Eisenhower. Turing can also return to its previous Darwin generation. The old WireGuard configuration remains recoverable from Git history.
 
-Provider deletion is the irreversible boundary. The process will not cross that boundary until Tailscale and OpenSSH work on both remaining remote hosts and the exact cloud targets have been verified.
+Provider deletion is the irreversible boundary. Melbourne owns that step after Tailscale and OpenSSH work on both remaining remote hosts.
