@@ -6,23 +6,20 @@ NixOS infrastructure configuration for all servers. Managed declaratively with N
 
 | Host | Role |
 |------|------|
-| **shannon** | Application server (haeru services) |
-| **einstein** | Application server (haeru amplify), deployment hub |
-| **feynman** | General-purpose server (disko-provisioned) |
+| **einstein** | Application server, GitHub runner, and deployment hub |
 | **newton** | NextDesk services *(currently disabled)* |
 
 ## Structure
 
-```
-hosts/          # Per-host NixOS configurations
+```text
+hosts/             # Per-host NixOS configurations
 modules/
-  shared/       # Core system, SSH keys, Promtail, node-exporter
-  infrastructure/  # Grafana, Loki, Alertmanager, Restic backups, GitHub runner
-  networking/   # WireGuard server & gateway
-  personal/     # Media server
-  linux/        # Linux-specific defaults, agenix setup
-secrets/        # agenix-encrypted secrets
-docs/           # Provisioning guides
+  shared/          # Core system and SSH keys
+  infrastructure/  # Reusable service modules
+  personal/        # Media server
+  linux/           # Linux defaults and agenix setup
+secrets/           # agenix-encrypted secrets
+docs/              # Design and implementation records
 ```
 
 ## Key Dependencies

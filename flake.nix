@@ -24,14 +24,6 @@
   outputs = { self, nixpkgs, deploy-rs, agenix, home-manager, dotfiles, haeru, nextdesk-services, disko }@inputs: {
     # All host configurations
     nixosConfigurations = {
-      shannon = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs self; };
-        modules = [ 
-          ./hosts/shannon/default.nix
-        ];
-      };
-      
       # newton = nixpkgs.lib.nixosSystem {
       #   system = "x86_64-linux";
       #   specialArgs = { inherit inputs self; };
@@ -49,13 +41,6 @@
         ];
       };
 
-      feynman = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs self; };
-        modules = [
-          ./hosts/feynman/default.nix
-        ];
-      };
     };
     
     # Export modules for other repos to use
@@ -72,10 +57,6 @@
       alertmanager = ./modules/infrastructure/alertmanager.nix;
       restic-backup = ./modules/infrastructure/restic-backup.nix;
       
-      # Networking
-      wireguard-server = ./modules/networking/wireguard-server.nix;
-      wireguard-gateway = ./modules/networking/wireguard-gateway.nix;
-      
       # Personal services
       media-server = ./modules/personal/media-server.nix;
       
@@ -86,19 +67,6 @@
     
     # Deployment configurations
     deploy.nodes = {
-      shannon = {
-        hostname = "shannon";
-        profiles.system = {
-          user = "root";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.shannon;
-          sshOpts = [
-            "-C"
-            "-o" "ControlMaster=auto"
-            "-o" "ControlPersist=60s"
-          ];
-        };
-      };
-      
       # newton = {
       #   hostname = "newton";
       #   profiles.system = {
@@ -112,14 +80,6 @@
         profiles.system = {
           user = "root";
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.einstein;
-        };
-      };
-
-      feynman = {
-        hostname = "feynman";  # Resolves to VPN IP via extraHosts
-        profiles.system = {
-          user = "root";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.feynman;
         };
       };
     };
