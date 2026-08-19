@@ -26,8 +26,7 @@
     bantime = "7d";
     ignoreIP = [
       "127.0.0.1/8"
-      "10.0.0.0/24"     # Personal VPN network
-      "10.0.1.0/24"     # Startup VPN network
+      "100.64.0.0/10"    # Tailscale network
       "192.168.50.0/24" # Local network
     ];
     jails = {

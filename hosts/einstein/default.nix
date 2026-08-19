@@ -6,12 +6,9 @@
     ./hardware-configuration.nix
     ../../modules/shared/core.nix
     ../../modules/shared/ssh-keys.nix
-    ../../modules/shared/promtail.nix
     ../../modules/linux/default.nix
     ../../modules/linux/agenix.nix
     ../../modules/personal/media-server.nix
-    ../../modules/networking/wireguard-gateway.nix
-    ../../modules/shared/node-exporter.nix
     ../../modules/infrastructure/github-runner.nix
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -19,10 +16,13 @@
   # Amplify distribution engine
   services.amplify.enable = true;
 
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
+
   networking.hostName = "einstein";
   networking.extraHosts = ''
-    10.0.0.1 shannon  # VPN IP for SSH deployment
-    10.0.1.3 feynman
     157.180.91.120 newton
   '';
 
@@ -88,9 +88,9 @@
   services.nix-serve = {
     enable = true;
     package = pkgs.nix-serve-ng;
-    bindAddress = "10.0.0.2";
+    bindAddress = "127.0.0.1";
     port = 8081;
-    openFirewall = true;
+    openFirewall = false;
     secretKeyFile = config.age.secrets.nix-serve-cache.path;
   };
 
@@ -105,7 +105,7 @@
   # Configure as remote builder
   nix.settings = {
     trusted-users = [ "root" "melbournebaldove" ];
-    substituters = lib.mkAfter [ "http://10.0.0.2:8081" ];
+    substituters = lib.mkAfter [ "http://127.0.0.1:8081" ];
     trusted-public-keys = lib.mkAfter [ "haeru-cache:m31dOHpFNZLXcN/Ts6luYMhDFvpqPjPBOkzioup9Q24=" ];
   };
 
@@ -124,19 +124,16 @@
     };
   };
 
-  monitoring.nodeExporter.listenAddress = "10.0.0.2";
+  # Allow the OpenClaw gateway on the Tailscale interface only.
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 18789 ];
 
-  # Allow promtail and openclaw gateway on VPN interface only
-  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 9080 18789 ];
-
-  # NAT VPN traffic to openclaw gateway on loopback
-  boot.kernel.sysctl."net.ipv4.conf.wg0.route_localnet" = 1;
-  networking.nat.enable = true;
+  # Forward Tailscale traffic to the OpenClaw gateway on loopback.
+  boot.kernel.sysctl."net.ipv4.conf.tailscale0.route_localnet" = 1;
   networking.firewall.extraCommands = ''
-    iptables -t nat -A PREROUTING -i wg0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789
+    iptables -t nat -A PREROUTING -i tailscale0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789
   '';
   networking.firewall.extraStopCommands = ''
-    iptables -t nat -D PREROUTING -i wg0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789 2>/dev/null || true
+    iptables -t nat -D PREROUTING -i tailscale0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789 2>/dev/null || true
   '';
 
   system.stateVersion = "24.05";
