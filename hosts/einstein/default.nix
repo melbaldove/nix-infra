@@ -148,5 +148,8 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+
+  # Tailscale - reachable as einstein.tail141ab8.ts.net
+  services.tailscale.enable = true;
   system.stateVersion = "24.05";
 }
