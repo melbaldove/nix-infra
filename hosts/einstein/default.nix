@@ -37,6 +37,9 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [ "wheel" "users" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIKzco47R/VfSeaEfMQu144S0iIOlFWmuTVLkc+J4dkx melbournebaldove@eisenhower"
+    ];
   };
 
   programs.zsh.enable = true;
