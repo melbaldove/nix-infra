@@ -36,13 +36,15 @@
   users.users.melbournebaldove = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "users" ];
+    extraGroups = [ "wheel" "users" "docker" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIKzco47R/VfSeaEfMQu144S0iIOlFWmuTVLkc+J4dkx melbournebaldove@eisenhower"
     ];
   };
 
   programs.zsh.enable = true;
+
+  virtualisation.docker.enable = true;
 
   # Enable nix-ld for dynamically linked binaries (Playwright Chromium)
   programs.nix-ld.enable = true;
