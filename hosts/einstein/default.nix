@@ -124,16 +124,16 @@
     };
   };
 
-  # Allow the OpenClaw gateway on the Tailscale interface only.
-  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 18789 ];
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 18789 3773 ];
 
-  # Forward Tailscale traffic to the OpenClaw gateway on loopback.
   boot.kernel.sysctl."net.ipv4.conf.tailscale0.route_localnet" = 1;
   networking.firewall.extraCommands = ''
     iptables -t nat -A PREROUTING -i tailscale0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789
+    iptables -t nat -A PREROUTING -i tailscale0 -d 100.74.255.22 -p tcp --dport 3773 -j DNAT --to-destination 127.0.0.1:3773
   '';
   networking.firewall.extraStopCommands = ''
     iptables -t nat -D PREROUTING -i tailscale0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789 2>/dev/null || true
+    iptables -t nat -D PREROUTING -i tailscale0 -d 100.74.255.22 -p tcp --dport 3773 -j DNAT --to-destination 127.0.0.1:3773 2>/dev/null || true
   '';
 
   system.stateVersion = "24.05";
