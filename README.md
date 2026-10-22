@@ -6,7 +6,7 @@ NixOS infrastructure configuration for all servers. Managed declaratively with N
 
 | Host | Role |
 |------|------|
-| **einstein** | Application server, GitHub runner, and deployment hub |
+| **einstein** | Application server and deployment hub |
 | **newton** | NextDesk services *(currently disabled)* |
 
 ## Structure

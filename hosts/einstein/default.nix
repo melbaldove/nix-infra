@@ -2,19 +2,15 @@
 
 {
   imports = [
-    inputs.haeru.nixosModules.amplify
     ./hardware-configuration.nix
     ../../modules/shared/core.nix
     ../../modules/shared/ssh-keys.nix
     ../../modules/linux/default.nix
     ../../modules/linux/agenix.nix
     ../../modules/personal/media-server.nix
-    ../../modules/infrastructure/github-runner.nix
+    ./nginx.nix
     inputs.home-manager.nixosModules.home-manager
   ];
-
-  # Amplify distribution engine
-  services.amplify.enable = true;
 
   services.tailscale = {
     enable = true;
@@ -39,10 +35,15 @@
   users.users.melbournebaldove = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "users" ];
+    extraGroups = [ "wheel" "users" "docker" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIKzco47R/VfSeaEfMQu144S0iIOlFWmuTVLkc+J4dkx melbournebaldove@eisenhower"
+    ];
   };
 
   programs.zsh.enable = true;
+
+  virtualisation.docker.enable = true;
 
   # Enable nix-ld for dynamically linked binaries (Playwright Chromium)
   programs.nix-ld.enable = true;
@@ -70,18 +71,6 @@
     at-spi2-core
     systemdLibs
   ];
-
-  # Allow github-runner to run nixos-rebuild with sudo for automated deployments
-  security.sudo.extraRules = [{
-    users = [ "github-runner" ];
-    commands = [{
-      command = "/run/current-system/sw/bin/nixos-rebuild";
-      options = [ "NOPASSWD" ];
-    }];
-  }];
-
-  # Override github-runner service to allow privilege escalation via sudo
-  systemd.services.github-runner-haeru-runner.serviceConfig.NoNewPrivileges = lib.mkForce false;
 
   age.secrets.nix-serve-cache.file = ../../secrets/infrastructure/nix-serve-cache.age;
 
@@ -124,7 +113,7 @@
     };
   };
 
-  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 18789 3773 ];
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 18789 3773 18100 ];
 
   boot.kernel.sysctl."net.ipv4.conf.tailscale0.route_localnet" = 1;
   networking.firewall.extraCommands = ''
@@ -135,6 +124,18 @@
     iptables -t nat -D PREROUTING -i tailscale0 -p tcp --dport 18789 -j DNAT --to-destination 127.0.0.1:18789 2>/dev/null || true
     iptables -t nat -D PREROUTING -i tailscale0 -d 100.74.255.22 -p tcp --dport 3773 -j DNAT --to-destination 127.0.0.1:3773 2>/dev/null || true
   '';
+
+  # NVIDIA RTX 2070 SUPER (TU104) - enables NVENC hardware video encoding.
+  # Proprietary driver rather than `open`: better-proven NVENC support on Turing.
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];  # loads the module; does not enable X
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    nvidiaSettings = false;      # headless host, no GUI
+    powerManagement.enable = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
 
   system.stateVersion = "24.05";
 }

@@ -34,8 +34,7 @@ if rg -n -i 'wireguard|10\.0\.0\.|10\.0\.1\.|172\.236\.148\.68|\bshannon\b|\bfey
   flake.nix \
   hosts/einstein \
   hosts/newton \
-  modules/linux/default.nix \
-  modules/infrastructure/github-runner.nix; then
+  modules/linux/default.nix; then
   exit 1
 fi
 

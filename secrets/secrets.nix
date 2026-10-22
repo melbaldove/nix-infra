@@ -16,12 +16,6 @@ in
   
   # Backup secrets
   "infrastructure/restic-password.age".publicKeys = [ user newton shannon einstein ];
-  
-  # GitHub runner token for einstein
-  "infrastructure/github-runner-token.age".publicKeys = [ user einstein ];
-  
-  # GitHub runner SSH key for einstein
-  "infrastructure/github-runner-ssh-key.age".publicKeys = [ user einstein ];
 
   # nix-serve binary cache signing key (Einstein hosts the cache)
   "infrastructure/nix-serve-cache.age".publicKeys = [ user einstein ];
