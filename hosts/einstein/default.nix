@@ -11,7 +11,6 @@
     ../../modules/personal/media-server.nix
     ../../modules/networking/wireguard-gateway.nix
     ../../modules/shared/node-exporter.nix
-    ../../modules/infrastructure/github-runner.nix
     ./nginx.nix
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -72,18 +71,6 @@
     at-spi2-core
     systemdLibs
   ];
-
-  # Allow github-runner to run nixos-rebuild with sudo for automated deployments
-  security.sudo.extraRules = [{
-    users = [ "github-runner" ];
-    commands = [{
-      command = "/run/current-system/sw/bin/nixos-rebuild";
-      options = [ "NOPASSWD" ];
-    }];
-  }];
-
-  # Override github-runner service to allow privilege escalation via sudo
-  systemd.services.github-runner-haeru-runner.serviceConfig.NoNewPrivileges = lib.mkForce false;
 
   age.secrets.nix-serve-cache.file = ../../secrets/infrastructure/nix-serve-cache.age;
 
