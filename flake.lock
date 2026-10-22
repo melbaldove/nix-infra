@@ -767,11 +767,11 @@
         "sf-mono-nerd-font": "sf-mono-nerd-font_4"
       },
       "locked": {
-        "lastModified": 1792662655,
-        "narHash": "sha256-tKhKcH9lSFZaf/kmCVtxn9aj2KC4CubuzXBG0X+E8Go=",
+        "lastModified": 1792665085,
+        "narHash": "sha256-TjZAaLf7E10JpjLhxwg7RbaLhRCTBYO/tNkWC3XlEMw=",
         "owner": "melbaldove",
         "repo": "dotfiles",
-        "rev": "80df20a61ff1dea925548e742bb46e67ef946833",
+        "rev": "52f9cabeb1c45bdd2fe8ee04a48d67b66d957f9e",
         "type": "github"
       },
       "original": {
@@ -794,11 +794,11 @@
         "sf-mono-nerd-font": "sf-mono-nerd-font_3"
       },
       "locked": {
-        "lastModified": 1792560254,
-        "narHash": "sha256-CaKAcFtnWww1llznwCjuGIiSuKYWqzNUnxrzL1Hc1ew=",
+        "lastModified": 1771631064,
+        "narHash": "sha256-X67UkTXWsS1LQn0CgE62+qGDYTh9I+aF22B6yL5Oe3I=",
         "owner": "melbaldove",
         "repo": "dotfiles",
-        "rev": "810c33a4047ba5fc826c74f824d8d6d03c2bac87",
+        "rev": "a1a3d6d1ef2facb3721f0997f5be02d2f518bf94",
         "type": "github"
       },
       "original": {
