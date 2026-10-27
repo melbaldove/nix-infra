@@ -767,11 +767,11 @@
         "sf-mono-nerd-font": "sf-mono-nerd-font_4"
       },
       "locked": {
-        "lastModified": 1793093515,
-        "narHash": "sha256-IjMkSkkBqyKxZ8iBO9C1RmWH3HTjs6QRmYhePu4kR+Y=",
+        "lastModified": 1793094554,
+        "narHash": "sha256-LQPTXl9k7xn3hM4j95NtiWS7HWKp/8+qgGCa6f7hNfc=",
         "owner": "melbaldove",
         "repo": "dotfiles",
-        "rev": "2817642897301006ed7aea5e3f2e5d1849d8ed16",
+        "rev": "918b07d51703f48777b4fc5a6e6907aaa7fd5768",
         "type": "github"
       },
       "original": {
