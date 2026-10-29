@@ -9,6 +9,7 @@
     ../../modules/linux/agenix.nix
     ../../modules/personal/media-server.nix
     ./nginx.nix
+    ./bark.nix
     inputs.home-manager.nixosModules.home-manager
   ];
 
