@@ -37,6 +37,12 @@ in
     AutoSuspendAction=0
   '';
 
+  home-manager.users.melbournebaldove.xdg.configFile."kscreenlockerrc".text = ''
+    [Daemon]
+    Autolock=false
+    LockOnResume=false
+  '';
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
