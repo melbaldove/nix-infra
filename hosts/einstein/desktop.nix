@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ lib, pkgs, inputs, ... }:
 
 let
   chromePkgs = import inputs.nixpkgs-chrome {
@@ -67,6 +67,8 @@ in
     capSysAdmin = true;
     openFirewall = false;
   };
+
+  systemd.user.services.sunshine.serviceConfig.Restart = lib.mkForce "always";
 
   networking.firewall.interfaces.tailscale0 = {
     allowedTCPPorts = [ 47984 47989 47990 48010 ];
