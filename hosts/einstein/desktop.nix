@@ -28,6 +28,15 @@ in
     };
   };
 
+  home-manager.users.melbournebaldove.xdg.configFile."powerdevilrc".text = ''
+    [AC][Display]
+    DimDisplayWhenIdle=false
+    TurnOffDisplayWhenIdle=false
+
+    [AC][SuspendAndShutdown]
+    AutoSuspendAction=0
+  '';
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
