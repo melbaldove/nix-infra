@@ -23,6 +23,8 @@
     pulse.enable = true;
   };
 
+  environment.systemPackages = [ pkgs.google-chrome ];
+
   programs.steam = {
     enable = true;
     gamescopeSession.enable = true;
