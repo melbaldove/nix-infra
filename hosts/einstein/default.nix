@@ -9,6 +9,7 @@
     ../../modules/linux/agenix.nix
     ../../modules/personal/media-server.nix
     ./nginx.nix
+    ./desktop.nix
     ./bark.nix
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -133,7 +134,7 @@
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;
-    nvidiaSettings = false;      # headless host, no GUI
+    nvidiaSettings = true;
     powerManagement.enable = false;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
