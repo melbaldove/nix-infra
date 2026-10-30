@@ -3,6 +3,7 @@
   
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-chrome.url = "github:NixOS/nixpkgs/nixos-unstable";
     deploy-rs.url = "github:serokell/deploy-rs";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,7 +22,7 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
   
-  outputs = { self, nixpkgs, deploy-rs, agenix, home-manager, dotfiles, haeru, nextdesk-services, disko }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-chrome, deploy-rs, agenix, home-manager, dotfiles, haeru, nextdesk-services, disko }@inputs: {
     # All host configurations
     nixosConfigurations = {
       # newton = nixpkgs.lib.nixosSystem {
